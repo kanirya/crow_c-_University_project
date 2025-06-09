@@ -1,18 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>C++ Crow UI</title>
+  <title>Student Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      margin-bottom: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #studentList {
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .student-card {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello from C++ Crow!</h1>
-  <button onclick="callCpp()">Call Backend</button>
+
+  <h1>Student Management</h1>
+
+  <form id="studentForm">
+    <input type="number" id="id" placeholder="Student ID" required />
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="number" id="age" placeholder="Age" required />
+    <input type="text" id="course" placeholder="Course" required />
+    <button type="submit">Add Student</button>
+  </form>
+
+  <button onclick="fetchStudents()">Display All Students</button>
+
+  <div id="studentList"></div>
 
   <script>
-    async function callCpp() {
-      const res = await fetch('/api/hello');
-      const text = await res.text();
-      alert(text);
+    const form = document.getElementById('studentForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const student = {
+        id: parseInt(document.getElementById('id').value),
+        name: document.getElementById('name').value,
+        age: parseInt(document.getElementById('age').value),
+        course: document.getElementById('course').value
+      };
+
+      const res = await fetch('/api/add_student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(student)
+      });
+
+      if (res.ok) {
+        alert('Student added successfully');
+        form.reset();
+      } else {
+        alert('Failed to add student');
+      }
+    });
+
+    async function fetchStudents() {
+      const res = await fetch('/api/get_students');
+      const data = await res.json();
+      const listDiv = document.getElementById('studentList');
+      listDiv.innerHTML = '<h3>All Students</h3>';
+
+      if (data.students.length === 0) {
+        listDiv.innerHTML += '<p>No students found.</p>';
+        return;
+      }
+
+      data.students.forEach(s => {
+        listDiv.innerHTML += `
+          <div class="student-card">
+            <strong>ID:</strong> ${s.id} <br>
+            <strong>Name:</strong> ${s.name} <br>
+            <strong>Age:</strong> ${s.age} <br>
+            <strong>Course:</strong> ${s.course}
+          </div>
+        `;
+      });
     }
   </script>
+
 </body>
 </html>
