@@ -1,0 +1,127 @@
+{
+    "courses": [
+        {
+            "capacity": 43,
+            "credits": 3,
+            "department_id": "CS",
+            "description": "sdfa",
+            "id": "34",
+            "name": "phy",
+            "semester": 3,
+            "student_ids": []
+        },
+        {
+            "capacity": 31,
+            "credits": 3,
+            "department_id": "EE",
+            "description": "sdfa",
+            "id": "2",
+            "name": "chem",
+            "semester": 5,
+            "student_ids": []
+        }
+    ],
+    "departments": [
+        {
+            "course_ids": [],
+            "description": "Computer Science and Engineering Department",
+            "id": "CS",
+            "name": "Computer Science"
+        },
+        {
+            "course_ids": [],
+            "description": "Electrical and Electronics Engineering Department",
+            "id": "EE",
+            "name": "Electrical Engineering"
+        },
+        {
+            "course_ids": [],
+            "description": "Mechanical Engineering Department",
+            "id": "ME",
+            "name": "Mechanical Engineering"
+        },
+        {
+            "course_ids": [],
+            "description": "Civil Engineering Department",
+            "id": "CE",
+            "name": "Civil Engineering"
+        },
+        {
+            "course_ids": [],
+            "description": "Business Administration Department",
+            "id": "BA",
+            "name": "Business Administration"
+        },
+        {
+            "course_ids": [],
+            "description": "Mathematics Department",
+            "id": "MA",
+            "name": "Mathematics"
+        },
+        {
+            "course_ids": [],
+            "description": "Physics Department",
+            "id": "PH",
+            "name": "Physics"
+        },
+        {
+            "course_ids": [],
+            "description": "Chemistry Department",
+            "id": "CH",
+            "name": "Chemistry"
+        }
+    ],
+    "students": [
+        {
+            "address": "Rawalpindi 6th road mubarak boys hostel chai khana street",
+            "age": 32,
+            "course_ids": [
+                "34"
+            ],
+            "department_id": "CS",
+            "email": "codewithartist1@gmail.com",
+            "id": "3243",
+            "name": "sdfad"
+        },
+        {
+            "address": "dfasd",
+            "age": 20,
+            "course_ids": [
+                "2"
+            ],
+            "department_id": "EE",
+            "email": "moshin@gmail.com",
+            "id": "3425",
+            "name": "mohsin"
+        }
+    ],
+    "teachers": [
+        {
+            "course_ids": [
+                "34"
+            ],
+            "department_id": "CS",
+            "email": "codewithartist1@gmail.com",
+            "id": "3432",
+            "name": "Muhammad Danish"
+        },
+        {
+            "course_ids": [
+                "34"
+            ],
+            "department_id": "CS",
+            "email": "baseer@gmail.com",
+            "id": "3432",
+            "name": "baseer"
+        },
+        {
+            "course_ids": [
+                "2"
+            ],
+            "department_id": "EE",
+            "email": "baseer@gmail.com",
+            "id": "3432",
+            "name": "baseeer"
+        }
+    ]
+}

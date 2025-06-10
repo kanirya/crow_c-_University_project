@@ -1,121 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Student Management</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 40px;
-    }
-    h1 {
-      color: #333;
-    }
-    form {
-      margin-bottom: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    input {
-      padding: 10px;
-      margin: 5px;
-      width: 200px;
-    }
-    button {
-      padding: 10px 15px;
-      margin: 5px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    #studentList {
-      margin-top: 20px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .student-card {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Campus Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+        }
+
+        .sidebar .nav-link {
+            color: white;
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--accent-color);
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .header {
+            background-color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .stat-card p {
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .action-buttons .btn {
+            margin: 5px;
+            padding: 10px 20px;
+        }
+    </style>
 </head>
 <body>
+    <div class="sidebar col-md-3 col-lg-2">
+        <div class="text-center mb-4">
+            <h3>CMS</h3>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="/"><i class="fas fa-home"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view-students"><i class="fas fa-user-graduate"></i> Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view-teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view-courses"><i class="fas fa-book"></i> Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view-departments"><i class="fas fa-building"></i> Departments</a>
+            </li>
+        </ul>
+    </div>
 
-  <h1>Student Management</h1>
+    <div class="main-content">
+        <div class="header">
+            <h1>Dashboard</h1>
+        </div>
 
-  <form id="studentForm">
-    <input type="number" id="id" placeholder="Student ID" required />
-    <input type="text" id="name" placeholder="Name" required />
-    <input type="number" id="age" placeholder="Age" required />
-    <input type="text" id="course" placeholder="Course" required />
-    <button type="submit">Add Student</button>
-  </form>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3 id="studentCount">0</h3>
+                    <p>Students</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3 id="teacherCount">0</h3>
+                    <p>Teachers</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <i class="fas fa-book"></i>
+                    <h3 id="courseCount">0</h3>
+                    <p>Courses</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <i class="fas fa-building"></i>
+                    <h3 id="departmentCount">0</h3>
+                    <p>Departments</p>
+                </div>
+            </div>
+        </div>
 
-  <button onclick="fetchStudents()">Display All Students</button>
+        <div class="row action-buttons">
+            <div class="col-12 text-center">
+                <a href="/add-student" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Student
+                </a>
+                <a href="/add-teacher" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Teacher
+                </a>
+                <a href="/add-course" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Course
+                </a>
+            </div>
+        </div>
 
-  <div id="studentList"></div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quick Actions</h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="/view-students" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="fas fa-list"></i> View Students
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="/view-teachers" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="fas fa-list"></i> View Teachers
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="/view-courses" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="fas fa-list"></i> View Courses
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="/view-departments" class="btn btn-outline-primary w-100 mb-2">
+                                    <i class="fas fa-list"></i> View Departments
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script>
-    const form = document.getElementById('studentForm');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fetch counts
+            fetch('/api/students')
+                .then(response => response.json())
+                .then(data => {
+                    $('#studentCount').text(data.length);
+                });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+            fetch('/api/teachers')
+                .then(response => response.json())
+                .then(data => {
+                    $('#teacherCount').text(data.length);
+                });
 
-      const student = {
-        id: parseInt(document.getElementById('id').value),
-        name: document.getElementById('name').value,
-        age: parseInt(document.getElementById('age').value),
-        course: document.getElementById('course').value
-      };
+            fetch('/api/courses')
+                .then(response => response.json())
+                .then(data => {
+                    $('#courseCount').text(data.length);
+                });
 
-      const res = await fetch('/api/add_student', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(student)
-      });
-
-      if (res.ok) {
-        alert('Student added successfully');
-        form.reset();
-      } else {
-        alert('Failed to add student');
-      }
-    });
-
-    async function fetchStudents() {
-      const res = await fetch('/api/get_students');
-      const data = await res.json();
-      const listDiv = document.getElementById('studentList');
-      listDiv.innerHTML = '<h3>All Students</h3>';
-
-      if (data.students.length === 0) {
-        listDiv.innerHTML += '<p>No students found.</p>';
-        return;
-      }
-
-      data.students.forEach(s => {
-        listDiv.innerHTML += `
-          <div class="student-card">
-            <strong>ID:</strong> ${s.id} <br>
-            <strong>Name:</strong> ${s.name} <br>
-            <strong>Age:</strong> ${s.age} <br>
-            <strong>Course:</strong> ${s.course}
-          </div>
-        `;
-      });
-    }
-  </script>
-
+            fetch('/api/departments')
+                .then(response => response.json())
+                .then(data => {
+                    $('#departmentCount').text(data.length);
+                });
+        });
+    </script>
 </body>
 </html>

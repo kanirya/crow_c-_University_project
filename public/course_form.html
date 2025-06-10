@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course - Campus Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .sidebar {
+            background-color: var(--primary-color);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 20px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <h4 class="mb-4">Campus Management</h4>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="/"><i class="fas fa-home me-2"></i>Dashboard</a>
+                    <a class="nav-link" href="/add-student"><i class="fas fa-user-plus me-2"></i>Add Student</a>
+                    <a class="nav-link active" href="/add-course"><i class="fas fa-book me-2"></i>Add Course</a>
+                    <a class="nav-link" href="/view-students"><i class="fas fa-users me-2"></i>View Students</a>
+                    <a class="nav-link" href="/view-courses"><i class="fas fa-list me-2"></i>View Courses</a>
+                    <a class="nav-link" href="/view-departments"><i class="fas fa-building me-2"></i>View Departments</a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="fas fa-book me-2"></i>Add New Course</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="courseForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="courseId" class="form-label">Course ID</label>
+                                    <input type="text" class="form-control" id="courseId" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Course Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="department" class="form-label">Department</label>
+                                    <select class="form-select" id="department" required>
+                                        <option value="">Select Department</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="credits" class="form-label">Credits</label>
+                                    <input type="number" class="form-control" id="credits" required min="1" max="6">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="semester" class="form-label">Semester</label>
+                                    <input type="number" class="form-control" id="semester" required min="1" max="8">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="capacity" class="form-label">Class Capacity</label>
+                                    <input type="number" class="form-control" id="capacity" required min="1">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Course Description</label>
+                                <textarea class="form-control" id="description" rows="3" required></textarea>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Save Course
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fetch departments and populate dropdown
+            fetch('/api/departments')
+                .then(response => response.json())
+                .then(departments => {
+                    const departmentSelect = $('#department');
+                    departments.forEach(dept => {
+                        departmentSelect.append(new Option(dept.name, dept.id));
+                    });
+                })
+                .catch(error => console.error('Error loading departments:', error));
+
+            // Handle form submission
+            $('#courseForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Get and validate all form fields
+                const courseId = $('#courseId').val().trim();
+                const name = $('#name').val().trim();
+                const departmentId = $('#department').val();
+                const credits = parseInt($('#credits').val());
+                const semester = parseInt($('#semester').val());
+                const capacity = parseInt($('#capacity').val());
+                const description = $('#description').val().trim();
+
+                // Validate all fields
+                if (!courseId || !name || !departmentId || isNaN(credits) || isNaN(semester) || isNaN(capacity) || !description) {
+                    alert('Please fill in all fields correctly');
+                    return;
+                }
+
+                const courseData = {
+                    id: courseId,
+                    name: name,
+                    department_id: departmentId,
+                    credits: credits,
+                    semester: semester,
+                    capacity: capacity,
+                    description: description
+                };
+
+                // Log the data being sent
+                console.log('Sending course data:', courseData);
+
+                // Show loading state
+                const submitButton = $(this).find('button[type="submit"]');
+                const originalText = submitButton.html();
+                submitButton.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Saving...');
+
+                fetch('/api/add_course', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(courseData)
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success) {
+                        alert('Course added successfully!');
+                        window.location.href = '/view-courses';
+                    } else {
+                        throw new Error(data.message || 'Failed to add course');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error adding course: ' + error.message);
+                    submitButton.prop('disabled', false).html(originalText);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
