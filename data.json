@@ -19,11 +19,25 @@
             "name": "chem",
             "semester": 5,
             "student_ids": []
+        },
+        {
+            "capacity": 60,
+            "credits": 4,
+            "department_id": "CS",
+            "description": "This coures is all about the fundamental of programming in which we learn basic c++.",
+            "id": "3",
+            "name": "Programmming Fundamental",
+            "semester": 1,
+            "student_ids": [
+                "3425"
+            ]
         }
     ],
     "departments": [
         {
-            "course_ids": [],
+            "course_ids": [
+                "3"
+            ],
             "description": "Computer Science and Engineering Department",
             "id": "CS",
             "name": "Computer Science"
@@ -93,6 +107,17 @@
             "email": "moshin@gmail.com",
             "id": "3425",
             "name": "mohsin"
+        },
+        {
+            "address": "Rawalpindi 6th road mubarak boys hostel chai khana street",
+            "age": 19,
+            "course_ids": [
+                "3"
+            ],
+            "department_id": "CS",
+            "email": "codewithartist1@gmail.com",
+            "id": "3425",
+            "name": "Danish kaneria"
         }
     ],
     "teachers": [

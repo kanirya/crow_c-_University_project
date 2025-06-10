@@ -443,6 +443,16 @@ int main() {
             course.description = data["description"].get<std::string>();
 
             courses.push_back(course);
+
+            // Add course to department's course_ids
+            for (auto& dept : departments) {
+                if (dept.id == course.department_id) {
+                    if (std::find(dept.course_ids.begin(), dept.course_ids.end(), course.id) == dept.course_ids.end()) {
+                        dept.course_ids.push_back(course.id);
+                    }
+                }
+            }
+
             saveToFile("data.json");
             std::cout << "Course saved successfully: " << course.id << std::endl;
 
@@ -485,6 +495,18 @@ int main() {
             student.address = data["address"].get<std::string>();
 
             students.push_back(student);
+
+            // Add student to each course's student_ids
+            for (const auto& course_id : student.course_ids) {
+                for (auto& course : courses) {
+                    if (course.id == course_id) {
+                        if (std::find(course.student_ids.begin(), course.student_ids.end(), student.id) == course.student_ids.end()) {
+                            course.student_ids.push_back(student.id);
+                        }
+                    }
+                }
+            }
+
             saveToFile("data.json");
 
             return crow::response(200, json{{"success", true}}.dump());
